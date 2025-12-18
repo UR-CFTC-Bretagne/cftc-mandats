@@ -3,9 +3,7 @@
 Application interne de gestion des mandatés CFTC  
 (organismes paritaires et institutionnels en Bretagne)
 
-[![WakaTime](https://wakatime.com/badge/user/EXEMPLE-PERSONNALISE.svg)](https://wakatime.com/@EXEMPLE-PERSONNALISE)  
 [![Build Status](https://github.com/UR-CFTC-Bretagne/cftc-mandats/actions/workflows/ci.yml/badge.svg)](https://github.com/UR-CFTC-Bretagne/cftc-mandats/actions)  
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/EXEMPLE-PROJET)](https://www.codacy.com/gh/UR-CFTC-Bretagne/cftc-mandats/dashboard)
 
 ---
 
