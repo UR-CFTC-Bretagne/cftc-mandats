@@ -23,15 +23,19 @@ jobs:
         run: pip install uv
 
       - name: Create uv virtual environment
+        working-directory: backend
         run: uv venv
 
       - name: Install dependencies
+        working-directory: backend
         run: |
           uv pip install --group default
           uv pip install --group dev
 
       - name: Run pre-commit checks
+        working-directory: backend
         run: uv run pre-commit run --all-files
 
       - name: Run pytest
+        working-directory: backend
         run: uv run pytest --maxfail=5 --disable-warnings -q
