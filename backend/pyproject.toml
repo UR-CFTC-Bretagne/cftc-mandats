@@ -1,20 +1,78 @@
-[tool.uv]
-python-preference = "managed"
+[project]
+name = "cftc-mandat"
+version = "0.1.0"
+description = "Application interne de gestion des mandatés CFTC"
+readme = "README.md"
+requires-python = ">=3.12"
 
-[tool.uv.dependency-groups.default]
 dependencies = [
-    "django>=5.0,<6.0",
-    "django-allauth>=1.2.0",
-    "psycopg2-binary>=2.9",
-    "python-dotenv>=1.0.0"
+    "django>=5.2.9",
+    "django-allauth>=65.13.1",
+    "djangorestframework>=3.16.1",
+    "psycopg[binary]>=3.3.1",
+    "python-dotenv>=1.0.1",
 ]
 
-[tool.uv.dependency-groups.dev]
-dependencies = [
-    "pytest>=7.3",
-    "black>=23.3",
-    "mypy>=1.5",
-    "flake8>=7.0",
-    "pre-commit>=3.3",
-    "django-stubs>=3.16"
+[dependency-groups]
+dev = [
+    "black>=25.11.0",
+    "mypy>=1.19.0",
+    "pre-commit>=4.5.0",
+    "pytest>=9.0.1",
+    "pytest-django>=4.9.0",
+    "ruff>=0.14.7",
+    "django-stubs>=5.1.1",
+    "djangorestframework-stubs>=3.15.0",
 ]
+
+# -------------------------
+# PYTEST
+# -------------------------
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = "tests.py test_*.py *_tests.py"
+
+# -------------------------
+# RUFF
+# -------------------------
+[tool.ruff]
+line-length = 88
+exclude = ["**/migrations/**"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]  # lignes longues autorisées
+
+#----------------------------------------------
+#MYPY
+#-------------------------------
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+ignore_missing_imports = false
+exclude = ["migrations"]
+plugins = ["mypy_django_plugin.main"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disable_error_code = ["untyped-decorator"]
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "config.settings"
+
+# -------------------------
+# BLACK
+# -------------------------
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+include = '\.pyi?$'
+
+# -------------------------
+# BUILD (optionnel)
+# -------------------------
+# [build-system]
+# requires = ["hatchling"]
+# build-backend = "hatchling.build"

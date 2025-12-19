@@ -1,26 +1,50 @@
 repos:
+  # -------------------------
+  # Ruff (lint Python)
+  # -------------------------
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.14.7
+    hooks:
+      - id: ruff
+        additional_dependencies: []
+        args: ["--fix"]
+
+  # -------------------------
+  # Black (formatage)
+  # -------------------------
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 25.11.0
     hooks:
       - id: black
-        language_version: python3
+        language_version: python3.12
 
+
+  # -------------------------
+  # MyPy (type checking, optionnel)
+  # -------------------------
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
+    rev: v1.19.0
     hooks:
       - id: mypy
-        additional_dependencies: [django-stubs]
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
-    hooks:
-      - id: flake8
-
-repos:
+        additional_dependencies:
+          - django-stubs
+          - djangorestframework-stubs
+          - python-dotenv
+          - psycopg
+          - django-allauth
+        args: ["--ignore-missing-imports"]
+        name: mypy (type check)
+        language_version: python3.12
+        stages: [commit]
+ # -------------------------
+  # Pytest (tests)
+  # -------------------------
   - repo: local
     hooks:
       - id: pytest
         name: pytest
-        entry: pytest
+        entry: ./backend/.venv/bin/pytest
         language: system
         types: [python]
+        pass_filenames: false
+        always_run: true

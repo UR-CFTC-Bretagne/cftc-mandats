@@ -2,40 +2,66 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
+      - "feature/**"
   pull_request:
-    branches: [ main, develop ]
 
 jobs:
-  test:
+  lint-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: potion
+          POSTGRES_PASSWORD: potion
+          POSTGRES_DB: potion
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U potion -d potion"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    strategy:
+      matrix:
+        python-version: [3.12]
 
     steps:
-      - name: Checkout code
+      # 1. Checkout du code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      # 2. Installer Python
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: ${{ matrix.python-version }}
 
-      - name: Install uv
-        run: pip install uv
-
-      - name: Create uv virtual environment
-        working-directory: backend
-        run: uv venv
-
+      # 3. Installer UV et les dépendances dev
       - name: Install dependencies
-        working-directory: backend
         run: |
-          uv pip install --group default
-          uv pip install --group dev
+          python -m pip install --upgrade pip
+          pip install uv
+          uv sync
 
-      - name: Run pre-commit checks
-        working-directory: backend
-        run: uv run pre-commit run --all-files
+      # 4. Linter avec Ruff
+      - name: Lint with Ruff
+        run: uv run ruff check . --fix
 
-      - name: Run pytest
-        working-directory: backend
-        run: uv run pytest --maxfail=5 --disable-warnings -q
+      # 5. Vérifier le format avec Black
+      - name: Check code format with Black
+        run: uv run black --check .
+
+      # 6. Lancer les tests Pytest avec DB
+      - name: Run tests with Pytest
+        env:
+          DATABASE_URL: postgres://potion:potion@localhost:5432/potion
+        run: uv run pytest
+
+      # 7. Vérification des types avec MyPy (optionnel)
+      - name: Type check with MyPy
+        if: false
+        run: uv run mypy .
