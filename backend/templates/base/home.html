@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+
+{% block title %}Accueil – CFTC Mandats{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    {% if user.is_authenticated %}
+
+        <div class="text-center">
+            <h1 class="display-6 fw-bold mb-3">
+                Bonjour {{ user.first_name|default:user.username }}
+            </h1>
+
+            <p class="lead text-muted mb-4">
+                Accédez à vos mandats et aux informations institutionnelles.
+            </p>
+
+            <a href="#" class="btn btn-primary btn-lg">
+                Accéder au tableau de bord
+            </a>
+        </div>
+
+    {% else %}
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-5 fw-bold mb-3">
+                    CFTC Mandats
+                </h1>
+
+                <p class="lead text-muted mb-4">
+                    Outil de gestion des mandatés et des représentations
+                    institutionnelles de la CFTC.
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg">
+                        Se connecter
+                    </a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-outline-secondary btn-lg">
+                        Créer un compte
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

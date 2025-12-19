@@ -87,6 +87,7 @@ TEMPLATES = [
     },
 ]
 
+
 # ========================
 # DATABASE
 # ========================
@@ -109,10 +110,10 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
-LOGIN_REDIRECT_URL = "/home/"
+LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = "none"
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_USERNAME_REQUIRED = True
 
@@ -156,3 +157,8 @@ filterwarnings(
     "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated.",
 )
 FORMS_URLFIELD_ASSUME_HTTPS = True
+ACCOUNT_FORMS = {
+    "login": "allauth.account.forms.LoginForm",
+    "signup": "allauth.account.forms.SignupForm",
+}
+ALLOWED_HOSTS = ["127.0.0.1"]
