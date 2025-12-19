@@ -18,49 +18,10 @@ Application interne de gestion des mandatés CFTC
 
 ## Stack technique
 
-- Python 3.x  
-- Django 5.x  
-- PostgreSQL  
+- Python 3.12  
+- Django 6  
+- PostgreSQL 15  
 - uv pour la gestion des dépendances  
-
----
-
-## Structure du projet
-
-cftc-mandats/
-├── uv.lock                 # lock des dépendances uv
-├── pyproject.toml
-├── backend/                # projet Django principal
-│   ├── manage.py
-│   ├── config/             # dossier principal (anciennement cftc_mandats)
-│   │   ├── __init__.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   ├── wsgi.py
-│   │   └── asgi.py
-│   ├── apps/               # apps métiers
-│   │   └── user/
-│   │       ├── __init__.py
-│   │       ├── admin.py
-│   │       ├── apps.py
-│   │       ├── models.py
-│   │       ├── views.py
-│   │       ├── urls.py
-│   │       └── tests.py
-│   ├── tests/              # tests globaux
-│   │   └── test_sample.py
-│   ├── static/             # fichiers statiques
-│   └── templates/          # templates Django et Allauth
-│       └── account/
-│           ├── login.html
-│           ├── signup.html
-│           └── logout.html
-├── .pre-commit-config.yaml # configuration des hooks pre-commit
-├── .github/
-│   └── workflows/
-│       └── ci.yml          # GitHub Actions
-├── README.md
-└── LICENSE
 
 ---
 
