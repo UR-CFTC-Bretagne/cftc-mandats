@@ -52,6 +52,7 @@ LOCAL_APPS = [
     "apps.mandat",
     "apps.reseaux",
     "apps.mandascop",
+    "apps.dashboard",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

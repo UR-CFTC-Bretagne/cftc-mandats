@@ -1,0 +1,71 @@
+<!-- dashboard/templates/dashboard/dashboard.html -->
+{% extends "base/base.html" %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Tableau de bord</h1>
+
+    <!-- Statistiques -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Mandats</h5>
+                    <p class="card-text fs-3">{{ total_mandats }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Militants</h5>
+                    <p class="card-text fs-3">{{ total_militants }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Mandataires</h5>
+                    <p class="card-text fs-3">{{ total_mandataires }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mandats récents -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Mandats récents</h5>
+        </div>
+        <div class="card-body p-0">
+            {% if recent_mandats %}
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Militant</th>
+                            <th scope="col">Organisme</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Date de création</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mandat in recent_mandats %}
+                        <tr>
+                            <td>{{ mandat.militant }}</td>
+                            <td>{{ mandat.organisme }}</td>
+                            <td>{{ mandat.type }}</td>
+                            <td>{{ mandat.date_creation|date:"d/m/Y H:i" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="p-3 mb-0">Aucun mandat récent.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
