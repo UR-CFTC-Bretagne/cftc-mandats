@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1>Liste des mandataires</h1>
+
+<a href="{% url 'mandataire:create' %}" class="btn btn-primary">
+    Nouveau mandataire
+</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Organisme</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mandataire in mandataires %}
+        <tr>
+            <td>
+                <a href="{% url 'mandataire:detail' mandataire.pk %}">
+                    {{ mandataire.nom }}
+                </a>
+            </td>
+            <td>{{ mandataire.prenom }}</td>
+            <td>{{ mandataire.organisme|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucun mandataire enregistré</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

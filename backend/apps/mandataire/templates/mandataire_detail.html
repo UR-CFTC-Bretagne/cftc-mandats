@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1>{{ object.prenom }} {{ object.nom }}</h1>
+
+<ul>
+    <li><strong>Email :</strong> {{ object.email }}</li>
+    <li><strong>Organisme :</strong> {{ object.organisme }}</li>
+    <li><strong>Téléphone :</strong> {{ object.telephone }}</li>
+</ul>
+
+<a href="{% url 'mandataire:update' object.pk %}" class="btn btn-warning">
+    Modifier
+</a>
+
+<a href="{% url 'mandataire:delete' object.pk %}" class="btn btn-danger">
+    Supprimer
+</a>
+
+<a href="{% url 'mandataire:list' %}" class="btn btn-secondary">
+    Retour à la liste
+</a>
+{% endblock %}

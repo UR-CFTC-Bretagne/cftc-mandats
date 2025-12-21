@@ -1,7 +1,19 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.organisme.models import Adresse
+
+class Adresse(models.Model):
+    rue: models.CharField = models.CharField(_("Adresse ligne 1"), max_length=255)
+    code_postal: models.CharField = models.CharField(_("Code postal"), max_length=5)
+    ville: models.CharField = models.CharField(_("Ville"), max_length=100)
+
+    class Meta:
+        verbose_name = _("Adresse")
+        verbose_name_plural = _("Adresses")
+        ordering = ["ville", "code_postal", "rue"]
+
+    def __str__(self):
+        return f"{self.rue}, {self.code_postal} {self.ville}"
 
 
 class Mandataire(models.Model):

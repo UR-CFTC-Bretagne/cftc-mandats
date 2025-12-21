@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1>
+    {% if object %}
+        Modifier un mandataire
+    {% else %}
+        Créer un mandataire
+    {% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">
+        Enregistrer
+    </button>
+
+    <a href="{% url 'mandataire:list' %}" class="btn btn-secondary">
+        Annuler
+    </a>
+</form>
+{% endblock %}
